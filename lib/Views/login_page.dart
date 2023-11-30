@@ -35,19 +35,11 @@ class _login_pageState extends State<login_page> {
                   const SizedBox(height: 25),
 
                   const Icon(
-                    Icons.message,
+                    Icons.shopping_cart,
                     size: 75,
                   ),
 
                   const SizedBox(height: 30),
-
-                  Text(
-                    "Login in ChatApp",
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 16,
-                    ),
-                  ),
 
                   const SizedBox(height: 20),
 

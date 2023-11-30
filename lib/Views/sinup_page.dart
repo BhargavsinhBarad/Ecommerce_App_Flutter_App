@@ -49,9 +49,11 @@ class _sinup_pageState extends State<sinup_page> {
                     child: TextField(
                       controller: emailcontroller,
                       onChanged: (val) {
-                        setState(() {
-                          Email = val;
-                        });
+                        setState(
+                          () {
+                            Email = val;
+                          },
+                        );
                       },
                       decoration: InputDecoration(
                         enabledBorder: const OutlineInputBorder(
