@@ -42,6 +42,7 @@ dependencies:
   get:
   http:
   connectivity_plus:
+  carousel_slider:
 
 dev_dependencies:
   flutter_test:

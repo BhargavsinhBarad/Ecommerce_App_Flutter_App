@@ -106,7 +106,7 @@ class _home_pageState extends State<home_page> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 12.0, bottom: 5),
+                                          left: 8.0, bottom: 5),
                                       child: Align(
                                         alignment:
                                             AlignmentDirectional.topStart,
