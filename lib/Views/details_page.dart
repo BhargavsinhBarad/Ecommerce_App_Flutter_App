@@ -1,16 +1,20 @@
+import 'package:af_exam_2/Controller/like.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class details_page extends StatefulWidget {
-  const details_page({super.key});
+import '../Controller/count.dart';
 
-  @override
-  State<details_page> createState() => _details_pageState();
-}
+class details_page extends StatelessWidget {
+  details_page({super.key});
+  countercontter Counter = Get.put(countercontter());
+  likecontroller like = Get.put(likecontroller());
 
-class _details_pageState extends State<details_page> {
   @override
   CarouselController carouselController = CarouselController();
+  likecontroller likecontrolle = likecontroller();
+
   Widget build(BuildContext context) {
     Map data = ModalRoute.of(context)!.settings.arguments as Map;
     List img = data['images'];
@@ -21,52 +25,56 @@ class _details_pageState extends State<details_page> {
         centerTitle: true,
       ),
       backgroundColor: Colors.grey[200],
-      body: Column(
-        children: [
-          CarouselSlider(
-            options: CarouselOptions(
-              height: 450,
-              viewportFraction: 0.9,
-              enlargeCenterPage: true,
-              autoPlay: true,
-              autoPlayInterval: Duration(seconds: 2),
-              autoPlayAnimationDuration: Duration(seconds: 2),
-              disableCenter: true,
-            ),
-            carouselController: carouselController,
-            items: [
-              ...data['images']
-                  .map(
-                    (e) => Container(
-                      margin: EdgeInsets.all(20),
-                      width: 400,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          // darker shadow on the bottom right
-                          BoxShadow(
-                            color: Colors.grey.shade500,
-                            blurRadius: 15,
-                            offset: Offset(10, 10),
-                          ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            CarouselSlider(
+              options: CarouselOptions(
+                height: 450,
+                viewportFraction: 0.9,
+                enlargeCenterPage: true,
+                autoPlay: true,
+                autoPlayInterval: Duration(seconds: 2),
+                autoPlayAnimationDuration: Duration(seconds: 2),
+                disableCenter: true,
+              ),
+              carouselController: carouselController,
+              items: [
+                ...data['images']
+                    .map(
+                      (e) => Container(
+                        margin: EdgeInsets.all(20),
+                        width: 400,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            // darker shadow on the bottom right
+                            BoxShadow(
+                              color: Colors.grey.shade500,
+                              blurRadius: 15,
+                              offset: Offset(10, 10),
+                            ),
 
-                          // lighter shadow on the top left
-                          const BoxShadow(
-                            color: Colors.white,
-                            blurRadius: 15,
-                            offset: Offset(-10, -10),
-                          ),
-                        ],
-                        image: DecorationImage(
-                            image: NetworkImage(e), fit: BoxFit.cover),
+                            // lighter shadow on the top left
+                            const BoxShadow(
+                              color: Colors.white,
+                              blurRadius: 15,
+                              offset: Offset(-10, -10),
+                            ),
+                          ],
+                          image: DecorationImage(
+                              image: NetworkImage(e), fit: BoxFit.cover),
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
-            ],
-          ),
-          Container(
-            child: SingleChildScrollView(
+                    )
+                    .toList(),
+              ],
+            ),
+            SizedBox(
+              height: Get.height * 0.04,
+            ),
+            SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
@@ -75,8 +83,8 @@ class _details_pageState extends State<details_page> {
                     child: Align(
                       alignment: AlignmentDirectional.centerStart,
                       child: Text("${data['title']}",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
+                          style: const TextStyle(
+                              fontSize: 28, fontWeight: FontWeight.bold)),
                     ),
                   ),
                   Padding(
@@ -85,21 +93,158 @@ class _details_pageState extends State<details_page> {
                       alignment: AlignmentDirectional.centerStart,
                       child: Text(
                         "${data['brand']}",
-                        style: TextStyle(
-                          fontSize: 20,
+                        style: const TextStyle(
+                          fontSize: 24,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  Text("⭐️ ${data['rating']}"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Text(
+                          "⭐️ ${data['rating']}",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(
+                          "10K Reviews",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                      )
+                    ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Divider(
+                      thickness: 2,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(12),
+                        height: 50,
+                        width: 140,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                Counter.Decrement();
+                              },
+                              icon: const Icon(
+                                CupertinoIcons.minus,
+                                size: 22,
+                              ),
+                            ),
+                            Obx(() => Text(
+                                  "${Counter.countmodel.counter}",
+                                  style: TextStyle(fontSize: 22),
+                                )),
+                            IconButton(
+                              onPressed: () {
+                                Counter.Increment();
+                              },
+                              icon: const Icon(
+                                CupertinoIcons.add,
+                              ),
+                            ),
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+                            border: Border.all(),
+                            borderRadius: BorderRadius.circular(15)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Align(
+                          alignment: AlignmentDirectional.topStart,
+                          child: Obx(
+                            () => Text(
+                              " \$ ${Counter.countmodel.counter * data['price']}",
+                              style: const TextStyle(
+                                  fontSize: 23, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Align(
+                      alignment: AlignmentDirectional.topStart,
+                      child: Text(
+                        "About Product",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Align(
+                      alignment: AlignmentDirectional.topStart,
+                      child: Text(
+                        "${data['description']}",
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w300),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: Get.width * 0.4,
+                        height: Get.height * 0.06,
+                        child: IconButton(
+                          onPressed: () {
+                            like.like();
+                          },
+                          icon: Obx(
+                            () => Icon(
+                              Icons.favorite_border,
+                              color: (like.l1.like == true)
+                                  ? Colors.red
+                                  : Colors.grey,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: Get.width * 0.6,
+                        height: Get.height * 0.06,
+                        child: Center(
+                            child: Text(
+                          "Add To Cart",
+                          style: TextStyle(
+                              fontSize: 21, fontWeight: FontWeight.bold),
+                        )),
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -5,14 +5,9 @@ import 'package:get/get.dart';
 
 import '../Model/api_model.dart';
 
-class home_page extends StatefulWidget {
+class home_page extends StatelessWidget {
   const home_page({super.key});
 
-  @override
-  State<home_page> createState() => _home_pageState();
-}
-
-class _home_pageState extends State<home_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
