@@ -64,7 +64,7 @@ class home_page extends StatelessWidget {
                             BoxShadow(
                               color: Colors.grey.shade500,
                               blurRadius: 15,
-                              offset: Offset(10, 10),
+                              offset: Offset(5, 5),
                             ),
 
                             // lighter shadow on the top left

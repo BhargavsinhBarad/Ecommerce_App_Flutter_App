@@ -1,4 +1,6 @@
 import 'package:af_exam_2/Controller/like.dart';
+import 'package:af_exam_2/Views/Utils/List.dart';
+import 'package:af_exam_2/Views/cart_page.dart';
 import 'package:af_exam_2/Views/home_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -60,14 +62,11 @@ class details_page extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
-                            // darker shadow on the bottom right
                             BoxShadow(
                               color: Colors.grey.shade500,
                               blurRadius: 15,
                               offset: Offset(10, 10),
                             ),
-
-                            // lighter shadow on the top left
                             const BoxShadow(
                               color: Colors.white,
                               blurRadius: 15,
@@ -200,7 +199,7 @@ class details_page extends StatelessWidget {
                       alignment: AlignmentDirectional.topStart,
                       child: Text(
                         "Discount: ${data['discountPercentage']}\%",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 23,
                             color: CupertinoColors.systemRed,
                             fontWeight: FontWeight.bold),
@@ -251,19 +250,25 @@ class details_page extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        width: Get.width * 0.6,
-                        height: Get.height * 0.06,
-                        child: Center(
-                            child: Text(
-                          "Add To Cart",
-                          style: TextStyle(
-                              fontSize: 21, fontWeight: FontWeight.bold),
-                        )),
-                        decoration: BoxDecoration(
-                          color:
-                              CupertinoColors.destructiveRed.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(25),
+                      GestureDetector(
+                        onTap: () {
+                          cartproduct.add(data);
+                          Get.to(cart_page());
+                        },
+                        child: Container(
+                          width: Get.width * 0.6,
+                          height: Get.height * 0.06,
+                          child: Center(
+                              child: Text(
+                            "Add To Cart",
+                            style: TextStyle(
+                                fontSize: 21, fontWeight: FontWeight.bold),
+                          )),
+                          decoration: BoxDecoration(
+                            color:
+                                CupertinoColors.destructiveRed.withOpacity(0.8),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
                         ),
                       ),
                     ],
