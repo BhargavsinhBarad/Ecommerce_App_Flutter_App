@@ -1,5 +1,6 @@
 import 'package:af_exam_2/Helper/api_helper.dart';
 import 'package:af_exam_2/Views/details_page.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,9 +14,9 @@ class home_page extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[200],
-        title: Text("Home page"),
-        centerTitle: true,
+        title: Text("Blipkart"),
       ),
+      drawer: Drawer(),
       backgroundColor: Colors.grey[200],
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -70,7 +71,7 @@ class home_page extends StatelessWidget {
                             const BoxShadow(
                               color: Colors.white,
                               blurRadius: 15,
-                              offset: Offset(-10, -10),
+                              offset: Offset(-5, -5),
                             ),
                           ],
                         ),
@@ -87,38 +88,50 @@ class home_page extends StatelessWidget {
                                     fit: BoxFit.cover),
                               ),
                             ),
-                            Row(
+                            Column(
                               children: [
-                                Column(
+                                Row(
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, bottom: 2.5),
-                                      child: Align(
-                                          alignment:
-                                              AlignmentDirectional.topStart,
-                                          child: Text("${apimodel?[i].title}")),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, bottom: 5),
-                                      child: Align(
-                                        alignment:
-                                            AlignmentDirectional.topStart,
-                                        child: Text("${apimodel?[i].brand}"),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8.0, right: 12, top: 5),
+                                        child: Text(
+                                          "${apimodel?[i].title}",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 15,
-                                      ),
-                                      child: Align(
-                                          alignment:
-                                              AlignmentDirectional.topStart,
-                                          child:
-                                              Text("${apimodel?[i].price} \$")),
                                     ),
                                   ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 12.0, bottom: 5),
+                                  child: Align(
+                                    alignment: AlignmentDirectional.topStart,
+                                    child: Text(
+                                      "${apimodel?[i].brand}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 15,
+                                  ),
+                                  child: Align(
+                                      alignment: AlignmentDirectional.topStart,
+                                      child: Text(
+                                        "\$ ${apimodel?[i].price}",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      )),
                                 ),
                               ],
                             ),

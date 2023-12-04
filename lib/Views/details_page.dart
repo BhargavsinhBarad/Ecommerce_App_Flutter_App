@@ -1,4 +1,5 @@
 import 'package:af_exam_2/Controller/like.dart';
+import 'package:af_exam_2/Views/home_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,16 @@ class details_page extends StatelessWidget {
       appBar: AppBar(
         title: Text(data['title']),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.chevron_left,
+            size: 35,
+          ),
+          onPressed: () {
+            Counter.countmodel.counter = 1.obs;
+            Get.back();
+          },
+        ),
       ),
       backgroundColor: Colors.grey[200],
       body: SingleChildScrollView(
@@ -183,14 +194,27 @@ class details_page extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.all(20.0),
+                    child: Align(
+                      alignment: AlignmentDirectional.topStart,
+                      child: Text(
+                        "Discount: ${data['discountPercentage']}\%",
+                        style: TextStyle(
+                            fontSize: 23,
+                            color: CupertinoColors.systemRed,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20.0),
                     child: Align(
                       alignment: AlignmentDirectional.topStart,
                       child: Text(
                         "About Product",
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w500),
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -201,9 +225,12 @@ class details_page extends StatelessWidget {
                       child: Text(
                         "${data['description']}",
                         style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w300),
+                            fontSize: 20, fontWeight: FontWeight.w400),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: Get.height * 0.02,
                   ),
                   Row(
                     children: [
@@ -214,9 +241,9 @@ class details_page extends StatelessWidget {
                           onPressed: () {
                             like.like();
                           },
-                          icon: Obx(
-                            () => Icon(
-                              Icons.favorite_border,
+                          icon: GetBuilder<likecontroller>(
+                            builder: (val) => Icon(
+                              Icons.favorite,
                               color: (like.l1.like == true)
                                   ? Colors.red
                                   : Colors.grey,
@@ -234,7 +261,8 @@ class details_page extends StatelessWidget {
                               fontSize: 21, fontWeight: FontWeight.bold),
                         )),
                         decoration: BoxDecoration(
-                          color: Colors.grey,
+                          color:
+                              CupertinoColors.destructiveRed.withOpacity(0.8),
                           borderRadius: BorderRadius.circular(25),
                         ),
                       ),

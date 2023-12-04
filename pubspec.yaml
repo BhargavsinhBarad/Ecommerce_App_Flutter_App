@@ -43,6 +43,7 @@ dependencies:
   http:
   connectivity_plus:
   carousel_slider:
+  auto_size_text:
 
 dev_dependencies:
   flutter_test:
