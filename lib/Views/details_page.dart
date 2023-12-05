@@ -252,7 +252,9 @@ class details_page extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          cartproduct.add(data);
+                          cartproduct.add(
+                            data,
+                          );
                           Get.to(cart_page());
                         },
                         child: Container(
