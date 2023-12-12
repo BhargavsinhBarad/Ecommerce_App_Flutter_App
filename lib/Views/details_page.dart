@@ -36,6 +36,7 @@ class details_page extends StatelessWidget {
             Get.back();
           },
         ),
+        backgroundColor: Colors.grey[200],
       ),
       backgroundColor: Colors.grey[200],
       body: SingleChildScrollView(

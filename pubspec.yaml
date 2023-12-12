@@ -44,6 +44,8 @@ dependencies:
   connectivity_plus:
   carousel_slider:
   auto_size_text:
+  pdf:
+  printing:
 
 dev_dependencies:
   flutter_test:

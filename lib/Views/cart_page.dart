@@ -1,26 +1,49 @@
 import 'dart:developer';
 
 import 'package:af_exam_2/Controller/count.dart';
+import 'package:af_exam_2/Controller/total.dart';
 import 'package:af_exam_2/Views/Utils/List.dart';
+import 'package:af_exam_2/Views/pdf.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 
-class cart_page extends StatelessWidget {
+class cart_page extends StatefulWidget {
   cart_page({super.key});
+
+  @override
+  State<cart_page> createState() => _cart_pageState();
+}
+
+class _cart_pageState extends State<cart_page> {
   countercontter Counter = Get.put(countercontter());
-  var total = 0;
-  var t = 0;
+  totalcontter sum = Get.put(totalcontter());
+
   @override
   CarouselController carouselController = CarouselController();
+  totalcontter totalcontroller = totalcontter();
+  @override
+  void initState() {
+    // TODO: implement initState
+    setState(() {
+      sum.sum();
+    });
+  }
+
   Widget build(BuildContext context) {
-    cartproduct.forEach(
-      (e) {
-        total += e['price'] as int;
-        log("${total}");
-      },
-    );
+    final pdf = pw.Document();
+
+    pdf.addPage(pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (pw.Context context) {
+          return pw.Center(
+            child: pw.Text("Hello World"),
+          ); // Center
+        }));
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Cart Page"),
@@ -33,6 +56,12 @@ class cart_page extends StatelessWidget {
             Get.back();
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(pdf_page());
+        },
+        child: Icon(Icons.picture_as_pdf),
       ),
       body: Column(
         children: [
@@ -116,7 +145,7 @@ class cart_page extends StatelessWidget {
               width: 150,
               child: Center(
                 child: Text(
-                  "${total} \$",
+                  "\$ ${sum.ta.total} ",
                   style: TextStyle(fontSize: 25),
                 ),
               ),
